@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Gallery     from '../../components/Gallery.astro';
+
+/* 1️⃣  Сообщаем Astro, какие «slug» нужно сгенерировать */
+export async function getStaticPaths() {
+  /* забираем все md-файлы из /content/projects */
+  const modules = import.meta.glob('../../content/projects/*.md');
+  return Object.keys(modules).map((file) => {
+    const slug = file.split('/').pop().replace('.md', '');
+    return { params: { slug } };
+  });
+}
+
+/* 2️⃣  Рендер конкретную страницу проекта */
+const { slug } = Astro.params;
+const project  = await import(`../../content/projects/${slug}.md`);
+const { frontmatter, default: Content } = project;
+---
+<BaseLayout title={frontmatter.title}>
+  <Content />
+  {frontmatter.gallery && <Gallery images={frontmatter.gallery} />}
+</BaseLayout>

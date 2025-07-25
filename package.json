@@ -1,7 +1,14 @@
 {
-  "name": "raykunovcg",
-  "version": "1.0.0",
+  "name": "astro-portfolio",
+  "type": "module",
   "scripts": {
-    "build": "mkdir -p dist && echo '<!DOCTYPE html><html><head><title>Coming Soon</title></head><body><h1>Coming Soon</h1></body></html>' > dist/index.html"
+    "gen-md": "node scripts/gen-md.js",
+    "dev": "npm run gen-md && astro dev",
+    "start": "npm run dev",
+    "build": "npm run gen-md && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.0.0"
   }
 }

@@ -1,0 +1,34 @@
+---
+export interface Props { images: string[] }
+const { images } = Astro.props;
+---
+
+<section class="gallery-grid">
+  {images.map((src) => (
+    /* ①  класс slb => SimpleLightbox «схватит» все ссылки */
+    <a class="gallery-item slb" href={src}>
+      <img src={src} loading="lazy" alt="" />
+    </a>
+  ))}
+</section>
+
+<style>
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(480px, 1fr));
+    gap: 2.5rem;
+    margin-block: 3rem;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+  }
+</style>
