@@ -1,0 +1,7 @@
+{
+  "name": "raykunovcg",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "mkdir -p dist && echo '<!DOCTYPE html><html><head><title>Coming Soon</title></head><body><h1>Coming Soon</h1></body></html>' > dist/index.html"
+  }
+}
