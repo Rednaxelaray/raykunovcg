@@ -15,21 +15,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm install          # <-- npm, не pnpm
 
       - name: Build site
-        run: npm run build      # ← npm, не pnpm
+        run: npm run build        # <-- использует твой скрипт `"build": "npm run gen-md && astro build"`
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist            # Astro кладёт сборку в dist
+          path: dist              # Astro кладёт сборку в dist
 
   deploy:
     needs: build
