@@ -59,7 +59,13 @@
     const gallery = document.querySelector('.grid.gallery');
     if (gallery){
       gallery.innerHTML = '';
-      const count = 6;
+      const counts = {
+        'project-1': 7,  // Матрасы в разрезе
+        'project-2': 11,  // Интерьер
+        'project-3': 8, // Матрасы
+        'project-4': 7   // Кровати
+    };
+    const count = counts[id] || 6;
       for (let i=1; i<=count; i++){
         const fig = document.createElement('figure');
         fig.className = 'gallery-item flat';
