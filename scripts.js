@@ -32,17 +32,23 @@
     const params = new URLSearchParams(location.search);
     const id = params.get('id') || 'project-1';
 
-    const titles = {
+     const titles = {
       'project-1': 'Матрасы в разрезе',
       'project-2': 'Интерьер',
       'project-3': 'Матрасы',
-      'project-4': 'Кровати      '
+      'project-4': 'Кровати',
+      'g-1': 'Карточки товаров',
+      'g-2': 'Баннеры',
+      'g-3': 'Инструкции и схемы'
     };
-    const descs = {
+     const descs = {
       'project-1': 'Софт: Blender, Substance Designer, Photoshop',
       'project-2': 'Софт: Blender, Photoshop',
       'project-3': 'Софт: Blender, Substance Designer, Photoshop',
-      'project-4': 'Софт: Blender'
+      'project-4': 'Софт: Blender',
+      'g-1': 'Инфографика: карточки, рендеры, композиции',
+      'g-2': 'Инфографика: промо-баннеры, рекламные плоскости',
+      'g-3': 'Инфографика: схемы устройств, инструкции'
     };
 
     const titleEl = document.getElementById('projectTitle');
@@ -53,13 +59,7 @@
     const gallery = document.querySelector('.grid.gallery');
     if (gallery){
       gallery.innerHTML = '';
-      const counts = {
-        'project-1': 7,  // Матрасы в разрезе
-        'project-2': 11,  // Интерьер
-        'project-3': 8, // Матрасы
-        'project-4': 7   // Кровати
-    };
-    const count = counts[id] || 6;
+      const count = 6;
       for (let i=1; i<=count; i++){
         const fig = document.createElement('figure');
         fig.className = 'gallery-item flat';
