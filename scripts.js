@@ -33,16 +33,16 @@
     const id = params.get('id') || 'project-1';
 
     const titles = {
-      'project-1': 'Проект 1',
-      'project-2': 'Проект 2',
-      'project-3': 'Проект 3',
-      'project-4': 'Проект 4'
+      'project-1': 'Матрасы в разрезе',
+      'project-2': 'Интерьер',
+      'project-3': 'Матрасы',
+      'project-4': 'Кровати      '
     };
     const descs = {
-      'project-1': 'Описание проекта 1. Софт: Blender, Photoshop. 2024.',
-      'project-2': 'Описание проекта 2. Софт: Maya, Substance 3D. 2024.',
-      'project-3': 'Описание проекта 3. Софт: 3ds Max, V-Ray. 2023.',
-      'project-4': 'Описание проекта 4. Софт: Houdini, Nuke. 2023.'
+      'project-1': 'Софт: Blender, Substance Designer, Photoshop',
+      'project-2': 'Софт: Blender, Photoshop',
+      'project-3': 'Софт: Blender, Substance Designer, Photoshop',
+      'project-4': 'Софт: Blender'
     };
 
     const titleEl = document.getElementById('projectTitle');
@@ -53,7 +53,13 @@
     const gallery = document.querySelector('.grid.gallery');
     if (gallery){
       gallery.innerHTML = '';
-      const count = 6;
+      const counts = {
+        'project-1': 7,  // Матрасы в разрезе
+        'project-2': 11,  // Интерьер
+        'project-3': 8, // Матрасы
+        'project-4': 7   // Кровати
+    };
+    const count = counts[id] || 6;
       for (let i=1; i<=count; i++){
         const fig = document.createElement('figure');
         fig.className = 'gallery-item flat';
