@@ -150,20 +150,21 @@ body{
 .grid.gallery{
   display:grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
+  gap: 20px;                                                                                                    /*РАССТОЯНИЕ МЕЖДУ ПЛИТКАМИ ПК*/
 }
 .gallery-item{
+  margin: 0; /* <-- ДОБАВЬТЕ ЭТУ СТРОКУ */
   overflow: hidden;
   border-radius: 12px;
   background: var(--card);
-  box-shadow: var(--shadow-soft); /* уменьшенная тень */
-  border: none; /* убрать обводку */
+  box-shadow: var(--shadow-soft);
+  border: none;
   transition: transform var(--speed);
 }
 .gallery-item:hover{ transform: translateY(-3px); }
 .gallery-item img{
   width:100%; height:100%; object-fit: cover; display:block;
-  aspect-ratio: 16 / 9;
+  /* aspect-ratio: 16 / 9; */ /* <-- ИЗМЕНЕНИЕ: Эта строка закомментирована */
   cursor: zoom-in;
 }
 
@@ -250,3 +251,77 @@ body{
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+
+/* --- НАЧАЛО: Код для адаптивной галереи --- */
+
+/* 1. Убираем принудительное соотношение сторон у изображений в галерее */
+.gallery-item img {
+  /* Строка aspect-ratio была закомментирована выше */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: zoom-in;
+}
+
+/* 2. Делаем основную сетку более гибкой (6 колонок) */
+.grid.gallery {
+  display: grid;
+  /* Меняем 2 колонки на 6 */
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;                                                                                    /* ОТСТУПЫ МЕЖДУ ФОТО В ГАЛЛЕРЕЕ */
+}
+
+/* 3. Добавляем правила для каждого типа изображений */
+
+/* Для стандартных фото (16:9) — 2 в ряд */
+.gallery-item[data-type="standard"] {
+  grid-column: span 3; /* Элемент занимает 3 из 6 колонок */
+}
+
+/* Для вертикальных фото — 3 в ряд */
+.gallery-item[data-type="vertical"] {
+  grid-column: span 2; /* Элемент занимает 2 из 6 колонок */
+}
+
+/* Для длинных фото — 1 в ряд */
+.gallery-item[data-type="long"] {
+  grid-column: span 6; /* Элемент занимает все 6 колонок */
+}
+
+
+/* 4. Адаптивность для разных экранов */
+
+/* Планшеты (до 880px) */
+@media (max-width: 880px) {
+  .grid.gallery {
+    /* Можно переключиться на 4-колоночную сетку */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;                                                                                                          /*РАССТОЯНИЕ МЕЖДУ ПЛИТКАМИ МОБ*/
+  }
+  .gallery-item[data-type="standard"] {
+    grid-column: span 4; /* Стандартные — по одному в ряд */
+  }
+  .gallery-item[data-type="vertical"] {
+    grid-column: span 2; /* Вертикальные — по два в ряд */
+  }
+  .gallery-item[data-type="long"] {
+    grid-column: span 4; /* Длинные — по одному в ряд */
+  }
+}
+
+/* Телефоны (до 540px) */
+@media (max-width: 540px) {
+  .grid.gallery {
+    /* Все элементы будут занимать 100% ширины */
+    grid-template-columns: 1fr;
+  }
+  .gallery-item[data-type="standard"],
+  .gallery-item[data-type="vertical"],
+  .gallery-item[data-type="long"] {
+    grid-column: span 1; /* Все по одному в ряд */
+  }
+}
+
+/* --- КОНЕЦ: Код для адаптивной галереи --- */
