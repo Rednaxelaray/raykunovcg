@@ -3,8 +3,6 @@
   const contactsSection = document.getElementById('contacts');
   const projectsGrid = document.querySelector('.grid.projects');
 
-  // --- УЛУЧШЕННАЯ ЛОГИКА ДЛЯ КОНТАКТОВ ---
-
   function showContacts() {
     if (contactsSection && projectsGrid && contactsLink) {
       contactsSection.removeAttribute('hidden');
@@ -45,56 +43,53 @@
   // --- ЛОГИКА ДЛЯ СТРАНИЦЫ project.html ---
   if (location.pathname.endsWith('project.html')){
     
-    // --- НОВОЕ ИСПРАВЛЕНИЕ: УМНАЯ КНОПКА "НАЗАД" ---
+    // --- ПОЛНОСТЬЮ ОБНОВЛЕННАЯ, НАДЕЖНАЯ ЛОГИКА ---
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id') || 'project-1';
+    // Получаем страницу для возврата из URL, по умолчанию 'index.html'
+    const returnPage = params.get('from') || 'index.html';
+
+    // 1. Умная кнопка "Назад"
     const backLink = document.getElementById('projectBackLink');
-    // Проверяем, что ссылка существует и что есть информация о предыдущей странице
-    // Также убеждаемся, что предыдущая страница - это наш же сайт, а не гугл, например
-    if (backLink && document.referrer && document.referrer.startsWith(window.location.origin)) {
-        // Устанавливаем адрес кнопки "Назад" на адрес предыдущей страницы
-        backLink.href = document.referrer;
+    if (backLink) {
+        // Просто устанавливаем правильный адрес, полученный из URL
+        backLink.href = returnPage;
     }
-    // Если условия не выполняются, ссылка сохранит свой href="index.html" по умолчанию, что является хорошим запасным вариантом.
 
-
-    // --- УМНАЯ ССЫЛКА "КОНТАКТЫ" ---
+    // 2. Умная ссылка "Контакты"
     const projectContactLink = document.getElementById('projectContactLink');
     if (projectContactLink) {
       projectContactLink.addEventListener('click', function(e) {
         e.preventDefault();
-        if (document.referrer) {
-          window.location.href = document.referrer.split('#')[0] + '#contacts';
-        } else {
-          window.location.href = 'index.html#contacts';
-        }
+        // Переходим на страницу возврата, добавляя #contacts
+        window.location.href = returnPage + '#contacts';
       });
     }
 
-    // --- ОСТАЛЬНАЯ ЛОГИКА ДЛЯ СТРАНИЦЫ ПРОЕКТА ---
-    const params = new URLSearchParams(location.search);
-    const id = params.get('id') || 'project-1';
-
+    // --- ОСТАЛЬНАЯ ЛОГИКА ДЛЯ СТРАНИЦЫ ПРОЕКТА vertical      long ---
      const titles = {
       'project-1': 'Матрасы в разрезе', 'project-2': 'Интерьер',
       'project-3': 'Матрасы', 'project-4': 'Кровати',
-      'g-1': 'Карточки товаров', 'g-2': 'Баннеры', 'g-3': 'Инструкции и схемы'
+      'g-1': 'Маркетплейсы', 'g-2': 'Рекламные баннеры', 'g-3': 'Инструкции и схемы'
     };
      const descs = {
       'project-1': 'Софт: Blender, Substance Designer, Photoshop',
       'project-2': 'Софт: Blender, Photoshop',
       'project-3': 'Софт: Blender, Substance Designer, Photoshop',
       'project-4': 'Софт: Blender',
-      'g-1': 'Инфографика: карточки, рендеры, композиции',
-      'g-2': 'Инфографика: промо-баннеры, рекламные плоскости',
+      'g-1': ' ',
+      'g-2': ' ',
       'g-3': 'Инфографика: схемы устройств, инструкции'
     };
     
+    // vertical / standart /    long
     const projectImages = {
       'project-1': [ { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' } ],
       'project-2': [ { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, ],
       'project-3': [ { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' } ],
       'project-4': [ { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' }, { type: 'standard' } ],
-      'g-1': [ {type: 'standard'}, {type: 'standard'}, {type: 'standard'}, {type: 'standard'} ],
-      'g-2': [ {type: 'standard'} ],
+      'g-1': [ {type: 'vertical'}, {type: 'vertical'}, {type: 'vertical'}, {type: 'vertical'}, {type: 'vertical'} , {type: 'vertical'}, {type: 'vertical'}, {type: 'vertical'} , {type: 'vertical'}  ],
+      'g-2': [ {type: 'long'}, { type: 'vertical' }, { type: 'vertical' }, { type: 'vertical' },{type: 'long'}, { type: 'vertical' }, { type: 'vertical' }, { type: 'vertical' },{type: 'long'}, { type: 'standard' }, { type: 'standard' }, { type: 'long' },{type: 'long'}, { type: 'long' } ],
       'g-3': []
     };
 
